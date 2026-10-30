@@ -1,5 +1,7 @@
 # Flight Log Reconciler
 
+Live app: https://flight-log-reconciler.vercel.app/
+
 Compare aircraft Log book and Journey Log flight time with a shared aircraft selector, Overview and Entry screens. React, TypeScript and Vite; hosted on Vercel with shared profiles in Supabase.
 
 ## Use
