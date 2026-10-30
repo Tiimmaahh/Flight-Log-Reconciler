@@ -39,3 +39,6 @@ header{margin-top:16px;padding:14px 20px}h1{font-size:20px}nav{padding:8px 20px}
 .entry-scroll{overflow:auto}
 
 .entry-table .running-total-cell{text-align:center}.entry-table th:nth-child(3){text-align:center}
+
+/* Five balanced entry columns, without a Notes column. */
+.entry-table{min-width:940px}.entry-table th:nth-child(1){width:8%}.entry-table th:nth-child(2){width:31%}.entry-table th:nth-child(3){width:15%}.entry-table th:nth-child(4){width:31%}.entry-table th:nth-child(5){width:15%}.entry-table td:nth-child(n){width:auto}.entry-table th:nth-child(5){text-align:center}.entry-table td:nth-child(5) .difference-summary{justify-content:center}.entry-table .logbook-layout,.entry-table .journey-layout{justify-content:space-between}.entry-table .logbook-summary{flex:0 1 auto}.entry-table .journey-summary{margin-left:auto}@media(max-width:960px){.entry-table{min-width:940px}}

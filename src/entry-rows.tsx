@@ -3,7 +3,7 @@ import{type Day,type Log,type Source,type Flight,type TimeValue,total,fmt,signed
 import{TimeField}from'./time-field.tsx';
 const newFlight=():Flight=>({id:uid(),time:null,flightId:'',departure:'',origin:'',destination:'',pilot:'',tail:'',notes:''});
 export function DayRow({day,runningTotal,save}:{day:Day;runningTotal:number|null;save:(d:Day)=>void}){
- const[details,setDetails]=useState(false);const[expanded,setExpanded]=useState(false);
+ const[expanded,setExpanded]=useState(false);
  const m=total(day.manual),g=total(day.digital);const diff=m===null||g===null?null:g-m;
  const status=m===null&&g===null?'Not entered':m===null?'Needs Log book':g===null?'Needs Journey Log':diff===0?'':'Difference';
  const update=(s:Source,patch:Partial<Log>)=>save({...structuredClone(day),[s]:{...structuredClone(day[s]),...patch,complete:false}});
@@ -25,6 +25,5 @@ export function DayRow({day,runningTotal,save}:{day:Day;runningTotal:number|null
 
  {day.digital.method==='flights'&&day.digital.total&&<small className="legacy-note">Original daily total: {fmt(day.digital.total.minutes)}. Only flight fields are counted.</small>}
  </td>
- <td><div className="difference-summary"><strong className={diff?'different':''}>{signed(diff)}</strong>{status&&<small>{status}</small>}</div></td><td><button className="quiet" aria-expanded={details} aria-label={`Details ${day.date}`} onClick={()=>setDetails(!details)}>{details?'Close':'Notes'}</button></td></tr>
- {details&&<tr className="detail-row"><td colSpan={6}><div className="source-details">{(['manual','digital']as Source[]).map(s=><section key={s}><h3>{s==='manual'?'Log book':'Journey Log'}</h3><label>Reference<input aria-label={`${s==='manual'?'Log book':'Journey Log'} reference ${day.date}`} value={day[s].reference} onChange={e=>update(s,{reference:e.target.value})}/></label><label>Notes<input aria-label={`${s==='manual'?'Log book':'Journey Log'} notes ${day.date}`} value={day[s].notes} onChange={e=>update(s,{notes:e.target.value})}/></label>{day[s].flights.filter(f=>f.notes).map(f=><p className="hint" key={f.id}>{f.notes}</p>)}</section>)}</div></td></tr>}</>;
+ <td><div className="difference-summary"><strong className={diff?'different':''}>{signed(diff)}</strong>{status&&<small>{status}</small>}</div></td></tr></>;
 }
