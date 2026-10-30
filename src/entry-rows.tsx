@@ -79,7 +79,7 @@ export function DayRow({
       <tr
         className={diff ? "different-row" : ""}
         onFocusCapture={activate}
-        onClickCapture={activate}
+        onClickCapture={() => setExpanded(true)}
       >
         <td className="day-number">
           {day.date.slice(8)}
@@ -238,4 +238,5 @@ export function DayRow({
     </>
   );
 }
+
 
