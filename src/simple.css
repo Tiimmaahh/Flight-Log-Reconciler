@@ -37,3 +37,5 @@ header{margin-top:16px;padding:14px 20px}h1{font-size:20px}nav{padding:8px 20px}
 .entry-table{min-width:1050px}.entry-table th:nth-child(1){width:72px}.entry-table th:nth-child(2){width:29%}.entry-table th:nth-child(3){width:125px}.entry-table th:nth-child(4){width:29%}.entry-table th:nth-child(5){width:145px}.entry-table th:nth-child(6){width:65px}.entry-table td.logbook-cell,.entry-table td.journey-cell{width:auto}.entry-table td.running-total-cell{width:125px;font-weight:600;color:#17334b;white-space:nowrap;background:#edf3f880}.entry-table td:nth-child(4),.entry-table td:nth-child(5){width:auto}@media(max-width:960px){.entry-table{min-width:1050px}}
 
 .entry-scroll{overflow:auto}
+
+.entry-table .running-total-cell{text-align:center}.entry-table th:nth-child(3){text-align:center}
