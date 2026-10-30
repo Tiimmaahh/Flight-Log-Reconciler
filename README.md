@@ -30,3 +30,7 @@ Copy `.env.example` to `.env.local` and configure the Supabase project URL and p
 ## Deployment
 
 See [shared deployment](docs/shared-deployment.md). Vercel builds `dist/` using `vercel.json`. Keep this repository and Vercel project separate from other company applications. Only the Supabase account directory and database infrastructure are shared; this application's storage lives in the separate `flight_reconciler` schema.
+
+## Code organization
+
+See [code structure and maintenance](docs/code-structure.md) for module responsibilities and upgrade guidance.
