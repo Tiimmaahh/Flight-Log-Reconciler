@@ -24,3 +24,6 @@ Keep calculations and validation in pure TypeScript modules, and cover new behav
 Aircraft total checkpoints are inclusive of their date. Initial hours for a new aircraft are anchored to the preceding day, so Log book entries from its creation date onward add to the opening value. Estimated historical months remain excluded from averages.
 
 Run pnpm test and pnpm build before publishing. The build includes TypeScript checks for unused variables and parameters. Source formatting uses Prettier 3.6.2 (pnpm dlx prettier@3.6.2 --write src index.html tsconfig.json).
+
+- src/journey-upload.tsx: file/drop input and daily comparison before import.
+- src/journey-import.ts: workbook extraction, validation, grouping and idempotent Journey Log replacement. ExcelJS is dynamically imported; parser and merge behavior have independent tests.

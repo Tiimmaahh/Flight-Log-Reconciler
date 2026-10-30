@@ -1482,3 +1482,66 @@ footer {
 .entry-table .additional-flight {
   margin-top: 3px;
 }
+
+.journey-upload {
+  border: 1px dashed #9fb5ca;
+  border-radius: 6px;
+  background: #f0f5fa;
+  padding: 12px 16px;
+  margin-bottom: 15px;
+}
+.upload-prompt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.upload-prompt small {
+  display: block;
+  color: #60768a;
+  margin-top: 5px;
+}
+.upload-file {
+  display: block;
+  border: 1px solid #bacbdc;
+  border-radius: 5px;
+  background: white;
+  padding: 8px 12px;
+  font-size: 12px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.upload-file input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  width: 100%;
+  cursor: pointer;
+}
+.upload-file:focus-within {
+  outline: 2px solid #387bb5;
+}
+.journey-upload p {
+  font-size: 12px;
+  line-height: 1.6;
+}
+.journey-preview {
+  margin-top: 18px;
+}
+.import-table {
+  max-height: 260px;
+  overflow: auto;
+  background: white;
+}
+.import-table td {
+  font-size: 12px;
+  padding: 7px 12px;
+}
+.import-table th {
+  position: sticky;
+  top: 0;
+}
+.journey-upload .dialog-actions {
+  margin-top: 12px;
+}

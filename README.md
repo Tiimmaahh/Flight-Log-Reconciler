@@ -36,3 +36,5 @@ See [shared deployment](docs/shared-deployment.md). Vercel builds `dist/` using 
 See [code structure and maintenance](docs/code-structure.md) for module responsibilities and upgrade guidance.
 
 Entry supports three Log book shifts. Missing Shift 3 in historical backups remains blank. Additional Journey Log flight fields collapse when another day is clicked or receives keyboard focus.
+
+Journey Log uploads: In Entry, drop a PHI Journey Log .xlsx export or choose a file. The preview reads tail B, Journey Log number F, flight date H, and flight hours L. Confirming replaces Journey Log entries on the listed dates and preserves Log book shifts. Repeated files are idempotent; conflicting duplicates, wrong aircraft, and invalid dates/times are rejected. Only extracted flight fields are saved to shared profiles; the workbook itself stays in the browser. The Excel reader is loaded only when importing.

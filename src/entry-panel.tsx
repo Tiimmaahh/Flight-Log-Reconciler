@@ -1,3 +1,5 @@
+import { JourneyUpload } from "./journey-upload.tsx";
+import { type JourneyImport } from "./journey-import.ts";
 import { useState } from "react";
 import {
   type Aircraft,
@@ -24,12 +26,14 @@ export function EntryPanel({
   year,
   month,
   save,
+  onImport,
 }: {
   aircraft: Aircraft;
   days: Day[];
   year: number;
   month: number;
   save: (day: Day) => void;
+  onImport: (source: JourneyImport) => boolean;
 }) {
   const [expandedRow, setExpandedRow] = useState<string | null>(null);
   const id = aircraft.id;
@@ -47,6 +51,12 @@ export function EntryPanel({
   const byDate = new Map(aircraftDays.map((day) => [day.date, day]));
   return (
     <>
+      <JourneyUpload
+        key={aircraft.id}
+        aircraft={aircraft}
+        days={days}
+        onImport={onImport}
+      />
       <div className="section-title">
         <h2>
           {months[month - 1]} {year}

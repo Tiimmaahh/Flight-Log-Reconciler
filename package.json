@@ -9,6 +9,7 @@
     "test": "node --experimental-strip-types --test tests/*.test.ts"
   },
   "dependencies": {
+    "exceljs": "4.4.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

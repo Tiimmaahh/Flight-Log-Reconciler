@@ -1,3 +1,4 @@
+import { type JourneyImport, applyJourneyImport } from "./journey-import.ts";
 import { useEffect, useRef, useState } from "react";
 import { type Data, type Day, type Aircraft, emptyData, uid } from "./core.ts";
 import { cloud } from "./cloud.ts";
@@ -132,6 +133,11 @@ export function useFlightData() {
       return false;
     }
   }
+  function importJourney(source: JourneyImport, aircraftId: string) {
+    return change("Import Journey Log " + source.filename, (data) =>
+      applyJourneyImport(data, source, aircraftId),
+    );
+  }
   function edit(day: Day) {
     change("Edit " + day.date, (d) => {
       const index = d.days.findIndex(
@@ -196,6 +202,7 @@ export function useFlightData() {
     disabled: !ready || failed.current,
     shared: Boolean(cloud),
     edit,
+    importJourney,
     addAircraft,
     restore,
     canUndo,
