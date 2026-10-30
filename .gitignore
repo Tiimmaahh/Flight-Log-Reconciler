@@ -1,0 +1,16 @@
+node_modules/
+.env.local
+.env.*.local
+.vercel/
+dist/
+.openai/*.local.*
+work-patch.mjs
+*.tar.gz
+*.zip
+work-shifts.mjs
+
+# Local source workbooks, backups and verification output
+reference/
+artifacts/
+PROJECT.md
+.openai/
