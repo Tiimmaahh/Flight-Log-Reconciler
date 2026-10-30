@@ -17,7 +17,11 @@ export type Flight = {
 };
 export type Log = {
   method: "total" | "flights" | "shifts";
-  shifts?: { day: TimeValue | null; night: TimeValue | null };
+  shifts?: {
+    day: TimeValue | null;
+    night: TimeValue | null;
+    third?: TimeValue | null;
+  };
   total: TimeValue | null;
   flights: Flight[];
   complete: boolean;
@@ -133,7 +137,11 @@ export function total(l: Log): number | null {
   if (l.method === "total") return l.total?.minutes ?? null;
   const values =
     l.method === "shifts"
-      ? [l.shifts?.day ?? null, l.shifts?.night ?? null]
+      ? [
+          l.shifts?.day ?? null,
+          l.shifts?.night ?? null,
+          l.shifts?.third ?? null,
+        ]
       : l.flights.map((f) => f.time);
   const entered = values.filter((v): v is TimeValue => v !== null);
   return entered.length
@@ -455,7 +463,10 @@ export function validateBackup(value: unknown): Data {
         !tv(l.total) ||
         !tv(l.cumulative) ||
         (l.shifts !== undefined &&
-          (!l.shifts || !tv(l.shifts.day) || !tv(l.shifts.night))) ||
+          (!l.shifts ||
+            !tv(l.shifts.day) ||
+            !tv(l.shifts.night) ||
+            (l.shifts.third !== undefined && !tv(l.shifts.third)))) ||
         (l.method === "shifts" && !l.shifts) ||
         !str(l.notes) ||
         !str(l.reference) ||

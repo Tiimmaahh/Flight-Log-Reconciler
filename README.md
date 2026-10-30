@@ -34,3 +34,5 @@ See [shared deployment](docs/shared-deployment.md). Vercel builds `dist/` using 
 ## Code organization
 
 See [code structure and maintenance](docs/code-structure.md) for module responsibilities and upgrade guidance.
+
+Entry supports three Log book shifts. Missing Shift 3 in historical backups remains blank. Additional Journey Log flight fields collapse when another day is clicked or receives keyboard focus.

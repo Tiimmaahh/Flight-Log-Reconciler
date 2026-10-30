@@ -9,8 +9,13 @@ test('database migration isolates storage, permits anonymous profile edits, audi
  try{
   await db.exec("create role anon; create role authenticated; create schema auth; create function auth.uid() returns uuid language sql as $$ select null::uuid $$;create table public.existing_supplemental(id int);insert into public.existing_supplemental values(1);");
   await db.exec(await readFile(new URL('../supabase/migrations/202610300001_flight_reconciler.sql',import.meta.url),'utf8'));
+  await db.exec(await readFile(new URL('../supabase/migrations/202610300002_third_shift.sql',import.meta.url),'utf8'));
   const data=emptyData();data.aircraft=[{id:'test-aircraft',tail:'NTEST',manual:null,digital:null}];data.days=[{aircraftId:'test-aircraft',date:'2026-01-01',manual:{...emptyLog(),total:parseTime('01:00')},digital:emptyLog()}];
   const change=[{id:'test-aircraft',expected_revision:0,payload:data}];
+  const three=structuredClone(data);three.days[0].manual={...emptyLog(),method:'shifts',shifts:{day:parseTime('01:00'),night:null,third:parseTime('00:15')}};
+  await db.query('select flight_reconciler.validate_profile($1::jsonb,$2)',[JSON.stringify(three),'test-aircraft']);
+  const invalid=structuredClone(three);invalid.days[0].manual.shifts.third={minutes:-1,raw:'bad',mode:'hm'};
+  await assert.rejects(db.query('select flight_reconciler.validate_profile($1::jsonb,$2)',[JSON.stringify(invalid),'test-aircraft']),/Invalid third shift/);
   await db.exec('set role anon');
   await db.query('select public.flight_reconciler_save($1::jsonb)',[JSON.stringify(change)]);
   const result=await db.query<{profiles:any}>('select public.flight_reconciler_profiles() as profiles');

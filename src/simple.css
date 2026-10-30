@@ -1462,3 +1462,23 @@ footer {
     min-width: 940px;
   }
 }
+
+/* Three compact shifts keep the existing time-entry font size. */
+.entry-table .time-input input {
+  height: 23px;
+  padding: 1px 8px;
+}
+.entry-table .shift-inputs {
+  gap: 2px;
+}
+.entry-table td {
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
+}
+.entry-table .add-flight,
+.entry-table .remove-flight {
+  height: 23px;
+}
+.entry-table .additional-flight {
+  margin-top: 3px;
+}

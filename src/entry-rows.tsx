@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   type Day,
   type Log,
@@ -25,13 +24,18 @@ const newFlight = (): Flight => ({
 export function DayRow({
   day,
   runningTotal,
+  expanded,
+  setExpanded,
+  activate,
   save,
 }: {
   day: Day;
   runningTotal: number | null;
+  expanded: boolean;
+  setExpanded: (expanded: boolean) => void;
+  activate: () => void;
   save: (d: Day) => void;
 }) {
-  const [expanded, setExpanded] = useState(false);
   const m = total(day.manual),
     g = total(day.digital);
   const diff = m === null || g === null ? null : g - m;
@@ -55,7 +59,7 @@ export function DayRow({
   const legacyJourney =
     day.digital.method === "total" && day.digital.total !== null;
   const flights = day.digital.method === "flights" ? day.digital.flights : [];
-  const setShift = (s: "day" | "night", v: TimeValue | null) =>
+  const setShift = (s: "day" | "night" | "third", v: TimeValue | null) =>
     update("manual", { method: "shifts", shifts: { ...shifts, [s]: v } });
   const setFlight = (index: number, time: TimeValue | null) => {
     const next = structuredClone(flights);
@@ -72,7 +76,11 @@ export function DayRow({
   };
   return (
     <>
-      <tr className={diff ? "different-row" : ""}>
+      <tr
+        className={diff ? "different-row" : ""}
+        onFocusCapture={activate}
+        onClickCapture={activate}
+      >
         <td className="day-number">
           {day.date.slice(8)}
           <small>
@@ -101,6 +109,14 @@ export function DayRow({
                   save={(v) => setShift("night", v)}
                 />
               </label>
+              <label>
+                Shift 3
+                <TimeField
+                  label={`Log book shift 3 ${day.date}`}
+                  value={shifts.third ?? null}
+                  save={(v) => setShift("third", v)}
+                />
+              </label>
             </div>
             <div className="logbook-summary">
               {legacyManual ? (
@@ -114,10 +130,10 @@ export function DayRow({
                 </small>
               )}
               {day.manual.method === "shifts" &&
-                (shifts.day === null || shifts.night === null) &&
-                m !== null && (
-                  <small>One shift entered · other shift blank</small>
-                )}
+                (shifts.day === null ||
+                  shifts.night === null ||
+                  shifts.third == null) &&
+                m !== null && <small>Some shifts blank</small>}
             </div>
           </div>
         </td>
@@ -222,3 +238,4 @@ export function DayRow({
     </>
   );
 }
+

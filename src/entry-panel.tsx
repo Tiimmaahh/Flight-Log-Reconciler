@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   type Aircraft,
   type Day,
@@ -30,6 +31,7 @@ export function EntryPanel({
   month: number;
   save: (day: Day) => void;
 }) {
+  const [expandedRow, setExpandedRow] = useState<string | null>(null);
   const id = aircraft.id;
   const prefix = `${year}-${String(month).padStart(2, "0")}`;
   const aircraftDays = days.filter((d) => d.aircraftId === id);
@@ -83,6 +85,15 @@ export function EntryPanel({
                 <DayRow
                   key={id + date}
                   day={day}
+                  expanded={expandedRow === id + date}
+                  setExpanded={(expanded) =>
+                    setExpandedRow(expanded ? id + date : null)
+                  }
+                  activate={() =>
+                    setExpandedRow((current) =>
+                      current === id + date ? current : null,
+                    )
+                  }
                   runningTotal={running.get(date) ?? null}
                   save={save}
                 />
