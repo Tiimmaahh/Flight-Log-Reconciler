@@ -97,28 +97,6 @@ export function JourneyUpload({
               : "Log book shifts remain unchanged."}{" "}
             Repeat uploads do not add duplicates.
           </p>
-          <div className="import-table">
-            <table>
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Records</th>
-                  <th>Imported time</th>
-                  <th>Existing time</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((row) => (
-                  <tr key={row.date}>
-                    <td>{row.date}</td>
-                    <td>{row.count}</td>
-                    <td>{fmt(row.minutes)}</td>
-                    <td>{fmt(row.existing)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
           <div className="dialog-actions import-actions">
             <button type="button" onClick={() => setSource(null)}>
               Cancel
