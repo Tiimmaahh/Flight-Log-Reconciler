@@ -133,9 +133,13 @@ export function useFlightData() {
       return false;
     }
   }
-  function importJourney(source: JourneyImport, aircraftId: string) {
+  function importJourney(
+    source: JourneyImport,
+    aircraftId: string,
+    fillLogBook = false,
+  ) {
     return change("Import Journey Log " + source.filename, (data) =>
-      applyJourneyImport(data, source, aircraftId),
+      applyJourneyImport(data, source, aircraftId, fillLogBook),
     );
   }
   function edit(day: Day) {

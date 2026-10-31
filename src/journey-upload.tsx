@@ -12,17 +12,19 @@ export function JourneyUpload({
 }: {
   aircraft: Aircraft;
   days: Day[];
-  onImport: (source: JourneyImport) => boolean;
+  onImport: (source: JourneyImport, fillLogBook: boolean) => boolean;
 }) {
   const [source, setSource] = useState<JourneyImport | null>(null),
     [error, setError] = useState(""),
     [busy, setBusy] = useState(false),
     [message, setMessage] = useState("");
+  const [fillLogBook, setFillLogBook] = useState(false);
   const request = useRef(0);
   async function read(file: File) {
     const sequence = ++request.current;
     setBusy(true);
     setSource(null);
+    setFillLogBook(false);
     setError("");
     setMessage("");
     try {
@@ -89,8 +91,11 @@ export function JourneyUpload({
           <p>
             {rows[0].date} through {rows.at(-1)!.date}. Import replaces Journey
             Log entries only on the listed dates, including existing manual
-            Journey Log entries. Log book shifts remain unchanged. Repeat
-            uploads do not add duplicates.
+            Journey Log entries.{" "}
+            {fillLogBook
+              ? "Log book entries on these dates will also be replaced: Shift 1 gets the daily Journey Log total, and Shifts 2 and 3 become 00:00."
+              : "Log book shifts remain unchanged."}{" "}
+            Repeat uploads do not add duplicates.
           </p>
           <div className="import-table">
             <table>
@@ -114,19 +119,28 @@ export function JourneyUpload({
               </tbody>
             </table>
           </div>
-          <div className="dialog-actions">
+          <div className="dialog-actions import-actions">
             <button type="button" onClick={() => setSource(null)}>
               Cancel
             </button>
+            <label className="import-both">
+              <input
+                type="checkbox"
+                checked={fillLogBook}
+                onChange={(e) => setFillLogBook(e.target.checked)}
+              />
+              Use for Journey Log and Log book
+            </label>
             <button
               type="button"
               className="primary"
               onClick={() => {
-                if (onImport(source)) {
+                if (onImport(source, fillLogBook)) {
                   setMessage(
-                    `Imported ${source.records.length} Journey Log records across ${rows.length} days. Check the shared save status above.`,
+                    `Imported ${source.records.length} Journey Log records across ${rows.length} days. ${fillLogBook ? "Log book shifts initialized from daily totals. " : ""}Check the shared save status above.`,
                   );
                   setSource(null);
+                  setFillLogBook(false);
                 }
               }}
             >

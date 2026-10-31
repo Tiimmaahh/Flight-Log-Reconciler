@@ -163,7 +163,9 @@ export function App() {
               year={year}
               month={month}
               save={store.edit}
-              onImport={(source) => store.importJourney(source, id)}
+              onImport={(source, fillLogBook) =>
+                store.importJourney(source, id, fillLogBook)
+              }
             />
           )}
         </fieldset>

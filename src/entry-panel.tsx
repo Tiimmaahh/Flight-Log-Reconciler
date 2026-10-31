@@ -33,7 +33,7 @@ export function EntryPanel({
   year: number;
   month: number;
   save: (day: Day) => void;
-  onImport: (source: JourneyImport) => boolean;
+  onImport: (source: JourneyImport, fillLogBook: boolean) => boolean;
 }) {
   const [expandedRow, setExpandedRow] = useState<string | null>(null);
   const id = aircraft.id;

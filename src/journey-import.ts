@@ -158,6 +158,7 @@ export function applyJourneyImport(
   data: Data,
   source: JourneyImport,
   aircraftId: string,
+  fillLogBook = false,
 ) {
   const aircraft = data.aircraft.find((a) => a.id === aircraftId);
   if (!aircraft) throw Error("Select an aircraft first.");
@@ -169,6 +170,24 @@ export function applyJourneyImport(
     if (!day) {
       day = { aircraftId, date, manual: emptyLog(), digital: emptyLog() };
       data.days.push(day);
+    }
+    if (fillLogBook) {
+      const minutes = records.reduce(
+        (sum, record) => sum + record.time.minutes,
+        0,
+      );
+      day.manual = {
+        ...day.manual,
+        method: "shifts",
+        total: null,
+        complete: true,
+        reference: source.filename,
+        shifts: {
+          day: { minutes, raw: fmt(minutes), mode: "hm" },
+          night: { minutes: 0, raw: "00:00", mode: "hm" },
+          third: { minutes: 0, raw: "00:00", mode: "hm" },
+        },
+      };
     }
     const flights: Flight[] = records.map((r) => ({
       id: "journey:" + r.flightId,

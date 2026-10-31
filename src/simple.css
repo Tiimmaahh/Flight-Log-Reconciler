@@ -1545,3 +1545,22 @@ footer {
 .journey-upload .dialog-actions {
   margin-top: 12px;
 }
+
+.import-actions {
+  align-items: center;
+  flex-wrap: wrap;
+}
+.import-both {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: #36536c;
+  cursor: pointer;
+}
+.import-both input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: #256394;
+}
